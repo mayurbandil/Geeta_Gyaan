@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-around bd-highlight text-center mt-2">
+  <div class="d-flex justify-content-center w-25 p-2 bd-highlight border-end">
+        <% if(locals.user){ %>
+    <div class="card border-0" style="width: 10rem; height: 12.5rem;">
+      <%if(user.avatar){%>
+      <img src="<%= user.avatar%>" class="card-img-top h-75 rounded-circle" alt="...">
+      <%}else{%>
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="card-img-top h-75 rounded-circle" alt="...">
+        <%}%>
+      <div class="card-body">
+        <a href="/users/profile/<%=user.id%>" class="btn btn-light"><%= user.name%></a>
+      </div>
+    </div>
+    <%}%>
+  </div>
+  <div class="w-75 p-2 bd-highlight">
+
+    <% if(locals.user){ %>
+      <h2>Create a Post</h2>
+      <form action="/posts/create" class="mb-5" id="new-post-form" method="POST">
+        <div class="mb-3">
+          <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-light" value="Post">Create</button>
+      </form>
+      <% } %>
+        <div class="d-flex flex-column mb-3">
+          <% for(post of posts){ %>
+            <%- include('_post') -%>
+              <%} %>
+        </div>
+  </div>
+  <div class="w-25 p-2 bd-highlight border-start mt-2">
+    <h4>Members</h4>
+    <div class="list-group">
+
+      <% for (u of all_users) {%>
+        <a href="/users/profile/<%= u.id %>" class="list-group-item list-group-item-action" aria-current="true">
+          <%= u.name %>
+        </a>
+        <%}%>
+    </div>
+  </div>
+</div>

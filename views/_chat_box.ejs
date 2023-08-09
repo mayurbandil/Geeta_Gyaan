@@ -1,0 +1,33 @@
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <% if(locals.user){ %>
+          <div class="modal-content modal-body modal-dialog" id="user-chat-box" style="padding: 0px;">
+            <div class="row d-flex ">
+              <div class="col-md-8 col-lg-6 col-xl-4 w-100">
+                <div class="card">
+                  <div class="card-header d-flex justify-content-between align-items-center p-3"
+                    style="border-top: 4px solid black">
+                    <h5 class="mb-0">Group Chat</h5>
+                    <div class="d-flex flex-row align-items-center">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                  </div>
+                  <div class="card-body overflow-auto" data-mdb-perfect-scrollbar="true"
+                    style="position: relative; height: 400px">
+                    <ul class="list-unstyled" id="chat-messages-list">
+                    </ul>
+                  </div>
+                  <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+                    <div class="input-group mb-0">
+                      <input id="chat-message-input" type="text" class="form-control" placeholder="Type message"
+                        aria-label="Recipient's username" aria-describedby="button-addon2" />
+                      <button class="btn btn-light" type="submit" id="send-message" style="padding-top: 0.55rem">
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+</div>

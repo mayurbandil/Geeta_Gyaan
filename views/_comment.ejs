@@ -1,0 +1,13 @@
+<div class="d-flex ">
+
+  
+  <% if (locals.user && locals.user.id==comment.user.id){ %>
+          <a href="/comments/destroy/<%= comment.id %>"><i class="fa fa-trash" style="color: #fa0000"></i></a>
+    <% } %>
+    <div class="mx-1">
+
+      <%= comment.user.name %> - <%= comment.content %>
+    </div>
+</div>
+    
+

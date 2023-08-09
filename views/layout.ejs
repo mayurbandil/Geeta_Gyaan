@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <script src="https://kit.fontawesome.com/8b5ce79d0d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"
+        integrity="sha512-0p3K0H3S6Q4bEWZ/WmC94Tgit2ular2/n0ESdfEX8l172YyQj8re1Wu9s/HT9T/T2osUw5Gx/6pAZNk3UKbESw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"
+        integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <!-- <link rel="stylesheet" href="/css/layout.css" -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/chat_box.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <%- include('_header');%>
+        <%- body %>
+    <%- include('_footer');%>
+    <%- include('_chat_box');%>
+        <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+            integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+            crossorigin="anonymous"></script>
+        <script src="/js/chat_engine.js"></script>
+        <% if (locals.user){ %>
+            <script>
+                new ChatEngine('user-chat-box', '<%= locals.user.name %>');
+            
+  // Get references to the input field and the button
+                        const inputField = document.getElementById('chat-message-input');
+                        const clearButton = document.getElementById('send-message');
+
+                        // Add an event listener to the button
+                        clearButton.addEventListener('click', function() {
+                            // Set the value of the input field to an empty string to clear it
+                            inputField.value = '';
+  });
+                
+
+            </script>
+            <% } %>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+            <%- script%>
+            <script>
+                    window.onbeforeunload = function () {
+                        localStorage.setItem('scrollPos', window.pageYOffset.toString());
+                    };
+
+
+                    window.onload = function () {
+                        var scrollPos = localStorage.getItem('scrollPos');
+                        if (scrollPos) {
+                            // Restore the saved scroll position
+                            function setWindowPosition(x, y) {
+                                window.scrollTo({
+                                    top: y,
+                                    left: x,
+                                    behavior: 'instant'
+                                });
+                            }
+
+                            // Usage:
+                            setWindowPosition(0, parseInt(scrollPos));
+                            localStorage.removeItem('scrollPos'); // Clear the saved scroll position
+                        }
+                    };
+                </script>
+                <script>
+                <% if (flash.success && flash.success.length > 0) {%>
+                        new Noty({
+                            theme: 'relax',
+                            text: "<%= flash.success %>",
+                            type: 'success',
+                            layout: 'topRight',
+                            timeout: 1500
+
+                        }).show();    
+                <%} %>
+    
+                <% if (flash.error && flash.error.length > 0) {%>
+                        new Noty({
+                            theme: 'relax',
+                            text: "<%= flash.error %>",
+                            type: 'error',
+                            layout: 'topRight',
+                            timeout: 1500
+
+                        }).show();    
+                <%} %>
+                </script>
+</body>
+
+
+</html>
